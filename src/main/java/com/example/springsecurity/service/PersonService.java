@@ -34,4 +34,8 @@ public class PersonService implements UserDetailsService {
     public void save(PersonEntity person) {
         personRepository.save(person);
     }
+
+    public Optional<PersonEntity> findUserByUsername(String username){
+        return personRepository.findByUsername(username);
+    }
 }

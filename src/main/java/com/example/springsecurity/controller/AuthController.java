@@ -2,6 +2,7 @@ package com.example.springsecurity.controller;
 
 import com.example.springsecurity.model.PersonEntity;
 import com.example.springsecurity.service.PersonService;
+import com.example.springsecurity.util.PersonValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
 
     private final PersonService personService;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public AuthController(PersonService personService) {
+    public AuthController(PersonService personService, PersonValidator personValidator) {
         this.personService = personService;
+        this.personValidator = personValidator;
     }
 
     @GetMapping("/login")
@@ -36,11 +39,13 @@ public class AuthController {
     public String registerPerson(@ModelAttribute("person") @Valid PersonEntity person,
                                  BindingResult bindingResult) {
 
+        personValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors()){
             return "auth/register";
         }
 
         personService.save(person);
-        return "auth/register";
+        return "redirect:auth/login";
     }
 }
