@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class PersonService implements UserDetailsService {
+public class PersonDetailsService implements UserDetailsService {
     private final PersonRepository personRepository;
 
     @Autowired
-    public PersonService(PersonRepository personRepository) {
+    public PersonDetailsService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
@@ -29,13 +29,5 @@ public class PersonService implements UserDetailsService {
         }
 
         return new PersonDetails(person.get());
-    }
-
-    public void save(PersonEntity person) {
-        personRepository.save(person);
-    }
-
-    public Optional<PersonEntity> findUserByUsername(String username){
-        return personRepository.findByUsername(username);
     }
 }
