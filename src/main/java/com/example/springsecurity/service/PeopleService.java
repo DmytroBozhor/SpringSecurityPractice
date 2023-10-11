@@ -24,6 +24,7 @@ public class PeopleService {
 
     public void save(PersonEntity person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRole("ROLE_USER");
         personRepository.save(person);
     }
 
