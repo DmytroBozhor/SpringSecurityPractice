@@ -12,4 +12,12 @@ public class AuthenticationDTO {
     @Size(min = 2, max = 100, message = "Username should be 2 to 100 characters!")
     private String username;
     private String password;
+
+    public AuthenticationDTO() {
+    }
+
+    public AuthenticationDTO(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
